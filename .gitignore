@@ -9,3 +9,4 @@ Thumbs.db
 .Trash/
 .Trashes/
 node_modules/
+npm-debug.log

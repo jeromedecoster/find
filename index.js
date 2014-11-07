@@ -1,5 +1,18 @@
 
+/**
+ * Expose `find`.
+ */
+
 module.exports = find;
+
+/**
+ * Return the first value in `arr` according to `fn`.
+ *
+ * @param {Array} arr
+ * @param {Function|Object|String} fn
+ * @return {Object}
+ * @api public
+ */
 
 function find(arr, fn) {
   if (!Array.isArray(arr)) return;
@@ -15,15 +28,39 @@ function find(arr, fn) {
   }
 }
 
-function isObject(o) {
-  return !!o && typeof o === 'object'
-      && o.constructor === Object && Object.keys(o).length > 0;
+/**
+ * Check if it's a valid plain object.
+ *
+ * @param  {Object}  obj
+ * @return {Boolean}
+ * @api private
+ */
+
+function isObject(obj) {
+  return !!obj && typeof obj === 'object'
+      && obj.constructor === Object && Object.keys(obj).length > 0;
 }
 
-function isString(s) {
-  return !!s && typeof s === 'string' && s.trim().length > 0
-      && s.replace(/\s|\w|\.(?!\.)|\$/g, '').length == 0;
+/**
+ * Check if it's a valid string.
+ *
+ * @param  {String}  str
+ * @return {Boolean}
+ * @api private
+ */
+
+function isString(str) {
+  return !!str && typeof str === 'string' && str.trim().length > 0
+      && str.replace(/\s|\w|\.(?!\.)|\$/g, '').length == 0;
 }
+
+/**
+ * Return a function to test in object mode.
+ *
+ * @param {Object} obj
+ * @return {Function}
+ * @api private
+ */
 
 function objectToFunction(obj) {
   return function(o) {
@@ -33,6 +70,14 @@ function objectToFunction(obj) {
     return true;
   }
 }
+
+/**
+ * Return a function to test in string mode.
+ *
+ * @param {Object} str
+ * @return {Function}
+ * @api private
+ */
 
 function stringToFunction(str) {
   return new Function('_', 'try { return _.' + str +' === true } catch(e) { return false }');
