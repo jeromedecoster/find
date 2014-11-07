@@ -16,13 +16,13 @@ npm install jeromedecoster/find
 
 Find with a function
 
-#### find(array, str)
-
-Find with a property string
-
 #### find(array, obj)
 
 Find with object value matching
+
+#### find(array, str)
+
+Find with a property string
 
 ## Example
 
