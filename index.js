@@ -37,8 +37,10 @@ function find(arr, fn) {
  */
 
 function isObject(obj) {
-  return !!obj && typeof obj === 'object'
-      && obj.constructor === Object && Object.keys(obj).length > 0;
+  return !!obj
+      && typeof obj === 'object'
+      && obj.constructor === Object
+      && Object.keys(obj).length > 0;
 }
 
 /**
@@ -50,7 +52,9 @@ function isObject(obj) {
  */
 
 function isString(str) {
-  return !!str && typeof str === 'string' && str.trim().length > 0
+  return !!str
+      && typeof str === 'string'
+      && str.trim().length > 0
       && str.replace(/\s|\w|\.(?!\.)|\$/g, '').length == 0;
 }
 
@@ -80,5 +84,11 @@ function objectToFunction(obj) {
  */
 
 function stringToFunction(str) {
-  return new Function('_', 'try { return _.' + str +' === true } catch(e) { return false }');
+  var fn = ''
+  + 'function isObject(x) { return typeof x === "object" && x !== null; };'
+  + 'function getProp(obj, path) { if (!isObject(obj) || typeof path !== "string") return obj;'
+  + 'path = path.split(".");'
+  + 'return getProp(obj[path.shift()], path.length && path.join(".")); };'
+  + 'return getProp(_, "' + str +'") === true';
+  return new Function('_', fn);
 }

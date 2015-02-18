@@ -1,12 +1,12 @@
-var find = require('..');
+var find = require('./index');
 var test = require('tape');
 
 var users = [];
 
 users.push({ name: 'Tobi', age: 2, species: 'ferret', admin: false });
 users.push({ name: 'Jane', age: 6, species: 'ferret', admin: true });
-users.push({ name: 'Luna', age: 2, species: 'cat',    awesome: { cat: false }});
-users.push({ name: 'Jane', age: 4, species: 'dog',    awesome: { cat: true } });
+users.push({ name: 'Luna', age: 2, species: 'cat',    awesome: { cat: false, big: {dog: 'true'}}});
+users.push({ name: 'Jane', age: 4, species: 'dog',    awesome: { cat: true,  big: {dog: true}}});
 
 test('find(arr, fn)', function (t) {
 
@@ -63,6 +63,10 @@ test('find(arr, str)', function (t) {
   t.equal(
     find(users, 'awesome.nothing'),
     undefined);
+
+  t.equal(
+    find(users, 'awesome.big.dog'),
+    users[3]);
 
   t.end();
 });

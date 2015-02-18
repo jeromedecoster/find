@@ -49,4 +49,4 @@ find(users, { name: 'Jane', age: 1 });
 
 ## Thanks
 
-Mainly forked / inspired by <a href="https://github.com/component/find" target="_blank">find</a> and <a href="https://github.com/component/to-function" target="_blank">to-function</a>
+Mainly forked / inspired by <a href="https://github.com/component/find" target="_blank">find</a>, <a href="https://github.com/component/to-function" target="_blank">to-function</a> and <a href="https://github.com/sindresorhus/dot-prop" target="_blank">dot-prop</a>

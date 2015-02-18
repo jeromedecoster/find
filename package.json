@@ -1,11 +1,11 @@
 {
   "name": "find",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Array find first value utility",
   "readme": "Array find first value utility",
-  "main": "dist/index.min.js",
+  "main": "index.min.js",
   "files": [
-    "dist/index.min.js",
+    "index.min.js",
     "index.js"
   ],
   "devDependencies": {
@@ -14,8 +14,8 @@
     "tap-min": "~0.1"
   },
   "scripts": {
-    "test": "tape test/**/*.js | tap-min",
-    "dist": "dist index.js -o dist/index.min.js"
+    "dist": "dist index.js -o index.min.js",
+    "test": "tape test.js | tap-min"
   },
   "repository": {
     "type": "git",
