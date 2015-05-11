@@ -3,28 +3,38 @@
  * Expose `find`.
  */
 
-module.exports = find;
+module.exports = find
 
 /**
- * Return the first value in `arr` according to `fn`.
+ * Return the first value in `arr` according to `search`.
  *
  * @param {Array} arr
- * @param {Function|Object|String} fn
+ * @param {Function|Object|String} search
  * @return {Object}
  * @api public
  */
 
-function find(arr, fn) {
-  if (!Array.isArray(arr)) return;
+function find (arr, search, all) {
+  if (!Array.isArray(arr)) return
 
-  if (typeof fn != 'function') {
-    if (isObject(fn)) fn = objectToFunction(fn);
-    else if (isString(fn)) fn = stringToFunction(fn);
-    else return;
+  if (typeof search != 'function') {
+    if (isObject(search)) search = objectToFunction(search)
+    else if (isString(search)) search = stringToFunction(search)
+    else return
   }
 
-  for (var i = 0, n = arr.length; i < n; i++) {
-    if (fn(arr[i])) return arr[i];
+  var i = 0
+  var n = arr.length
+  if (all !== true) {
+    for (; i < n; i++) {
+      if (search(arr[i])) return arr[i]
+    }
+  } else {
+    var result = []
+    for (; i < n; i++) {
+      if (search(arr[i])) result.push(arr[i])
+    }
+    if (result.length > 0) return result
   }
 }
 
@@ -36,11 +46,11 @@ function find(arr, fn) {
  * @api private
  */
 
-function isObject(obj) {
+function isObject (obj) {
   return !!obj
       && typeof obj === 'object'
       && obj.constructor === Object
-      && Object.keys(obj).length > 0;
+      && Object.keys(obj).length > 0
 }
 
 /**
@@ -51,11 +61,11 @@ function isObject(obj) {
  * @api private
  */
 
-function isString(str) {
+function isString (str) {
   return !!str
       && typeof str === 'string'
       && str.trim().length > 0
-      && str.replace(/\s|\w|\.(?!\.)|\$/g, '').length == 0;
+      && str.replace(/\s|\w|\.(?!\.)|\$/g, '').length == 0
 }
 
 /**
@@ -66,12 +76,12 @@ function isString(str) {
  * @api private
  */
 
-function objectToFunction(obj) {
-  return function(o) {
+function objectToFunction (obj) {
+  return function (o) {
     for (var key in obj) {
-      if (o[key] != obj[key]) return false;
+      if (o[key] != obj[key]) return false
     }
-    return true;
+    return true
   }
 }
 
@@ -83,12 +93,12 @@ function objectToFunction(obj) {
  * @api private
  */
 
-function stringToFunction(str) {
+function stringToFunction (str) {
   var fn = ''
-  + 'function isObject(x) { return typeof x === "object" && x !== null; };'
-  + 'function getProp(obj, path) { if (!isObject(obj) || typeof path !== "string") return obj;'
+  + 'function isObject (x) { return typeof x === "object" && x !== null; };'
+  + 'function getProp (obj, path) { if (!isObject(obj) || typeof path !== "string") return obj;'
   + 'path = path.split(".");'
   + 'return getProp(obj[path.shift()], path.length && path.join(".")); };'
-  + 'return getProp(_, "' + str +'") === true';
-  return new Function('_', fn);
+  + 'return getProp(_, "' + str +'") === true'
+  return new Function('_', fn)
 }

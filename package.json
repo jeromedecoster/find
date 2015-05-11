@@ -1,20 +1,17 @@
 {
   "name": "find",
-  "version": "0.2.0",
-  "description": "Array find first value utility",
-  "readme": "Array find first value utility",
-  "main": "index.min.js",
+  "version": "0.3.0",
+  "description": "Array find value utility",
+  "readme": "Array find value utility",
+  "main": "index.js",
   "files": [
-    "index.min.js",
     "index.js"
   ],
   "devDependencies": {
-    "dist": "jeromedecoster/dist",
-    "tape": "~3",
-    "tap-min": "~0.1"
+    "tape": "~4",
+    "tap-min": "~1"
   },
   "scripts": {
-    "dist": "dist index.js -o index.min.js",
     "test": "tape test.js | tap-min"
   },
   "repository": {
