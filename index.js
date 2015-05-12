@@ -6,10 +6,11 @@
 module.exports = find
 
 /**
- * Return the first value in `arr` according to `search`.
+ * Return the first|all values|indexes in `arr` according to `search` and `options`.
  *
  * @param {Array} arr
  * @param {Function|Object|String} search
+ * @param {Object} options (optional)
  * @return {Object}
  * @api public
  */
