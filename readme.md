@@ -1,6 +1,6 @@
 # Find
 
-Array find value utility
+Array find utility
 
 ## Install
 
