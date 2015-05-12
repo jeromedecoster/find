@@ -26,18 +26,52 @@ test('find(arr, fn)', function (t) {
   t.end()
 })
 
-test('find(arr, fn, true)', function (t) {
+test('find(arr, fn, {index: true})', function (t) {
+
+  t.equal(
+    find(users, function(e) { return e.name == 'Jane' }, {index: true}),
+    1)
+
+  t.equal(
+    find(users, function(e) { return e.name == 'Jane' && e.age < 5 }, {index: true}),
+    3)
+
+  t.equal(
+    find(users, function(e) { return e.name == 'John' }, {index: true}),
+    undefined)
+
+  t.end()
+})
+
+test('find(arr, fn, {all: true})', function (t) {
 
   t.deepEqual(
-    find(users, function(e) { return e.name == 'Jane' }, true),
+    find(users, function(e) { return e.name == 'Jane' }, {all: true} ),
     [users[1], users[3]])
 
   t.deepEqual(
-    find(users, function(e) { return e.name == 'Jane' && e.age < 5 }, true),
+    find(users, function(e) { return e.name == 'Jane' && e.age < 5 }, {all: true}),
     [users[3]])
 
   t.deepEqual(
-    find(users, function(e) { return e.name == 'John' }, true),
+    find(users, function(e) { return e.name == 'John' }, {all: true}),
+    undefined)
+
+  t.end()
+})
+
+test('find(arr, fn, {all: true, index: true})', function (t) {
+
+  t.deepEqual(
+    find(users, function(e) { return e.name == 'Jane' }, {all: true, index: true} ),
+    [1, 3])
+
+  t.deepEqual(
+    find(users, function(e) { return e.name == 'Jane' && e.age < 5 }, {all: true, index: true}),
+    [3])
+
+  t.equal(
+    find(users, function(e) { return e.name == 'John' }, {all: true, index: true}),
     undefined)
 
   t.end()
@@ -61,76 +95,100 @@ test('find(arr, obj)', function (t) {
     find(users, { name:'John' }),
     undefined)
 
+  t.equal(
+    find(users, { awesome: { big: { dog : 'true' } } }),
+    users[2])
+
+  t.equal(
+    find(users, { awesome: { big: { dog : true } } }),
+    users[3])
+
+  t.equal(
+    find(users, { awesome: { big: { joe : true } } }),
+    undefined)
+
   t.end()
 })
 
-test('find(arr, obj, true)', function (t) {
+test('find(arr, obj, {index: true})', function (t) {
+
+  t.equal(
+    find(users, { name: 'Jane' }, {index: true}),
+    1)
+
+  t.equal(
+    find(users, { name: 'Jane', age: 4 }, {index: true}),
+    3)
+
+  t.equal(
+    find(users, { name:'Jane', age: 12 }, {index: true}),
+    undefined)
+
+  t.equal(
+    find(users, { name:'John' }, {index: true}),
+    undefined)
+
+  t.equal(
+    find(users, { awesome: { big: { dog : 'true' } } }, {index: true}),
+    2)
+
+  t.equal(
+    find(users, { awesome: { big: { dog : true } } }, {index: true}),
+    3)
+
+  t.equal(
+    find(users, { awesome: { big: { joe : true } } }, {index: true}),
+    undefined)
+
+  t.end()
+})
+
+test('find(arr, obj, {all: true})', function (t) {
 
   t.deepEqual(
-    find(users, { name: 'Jane' }, true),
+    find(users, { name: 'Jane' }, {all: true}),
     [users[1], users[3]])
 
   t.deepEqual(
-    find(users, { name: 'Jane', age: 4 }, true),
+    find(users, { name: 'Jane', age: 4 }, {all: true}),
     [users[3]])
 
   t.deepEqual(
-    find(users, { name:'Jane', age: 12 }, true),
+    find(users, { name:'Jane', age: 12 }, {all: true}),
     undefined)
 
   t.deepEqual(
-    find(users, { name:'John' }, true),
+    find(users, { name:'John' }, {all: true}),
     undefined)
-
-  t.end()
-})
-
-test('find(arr, str)', function (t) {
-
-  t.equal(
-    find(users, 'admin'),
-    users[1])
-
-  t.equal(
-    find(users, 'awesome.cat'),
-    users[3])
-
-   t.equal(
-    find(users, 'species'),
-    undefined)
-
-  t.equal(
-    find(users, 'awesome'),
-    undefined)
-
-  t.equal(
-    find(users, 'awesome.nothing'),
-    undefined)
-
-  t.equal(
-    find(users, 'awesome.big.dog'),
-    users[3])
-
-  t.end()
-})
-
-test('find(arr, str, true)', function (t) {
 
   t.deepEqual(
-    find(users, 'admin', true),
-    [users[1], users[4]])
-
-  t.deepEqual(
-    find(users, 'awesome.cat', true),
+    find(users, { awesome: {cat: true} }, {all: true}),
     [users[3], users[4]])
 
+  t.end()
+})
+
+test('find(arr, obj, {all: true, index: true})', function (t) {
+
   t.deepEqual(
-    find(users, 'species', true),
+    find(users, { name: 'Jane' }, {all: true, index: true}),
+    [1, 3])
+
+  t.deepEqual(
+    find(users, { name: 'Jane', age: 4 }, {all: true, index: true}),
+    [3])
+
+  t.deepEqual(
+    find(users, { name:'Jane', age: 12 }, {all: true, index: true}),
     undefined)
 
   t.deepEqual(
-    find(users, 'awesome.big.dog', true),
-    [users[3]])
+    find(users, { name:'John' }, {all: true, index: true}),
+    undefined)
+
+  t.deepEqual(
+    find(users, { awesome: {cat: true} }, {all: true, index: true}),
+    [3, 4])
 
   t.end()
 })
@@ -142,7 +200,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, {}, true),
+    find(users, {}, {all: true}),
     undefined)
 
   t.equal(
@@ -150,7 +208,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, [], true),
+    find(users, [], {all: true}),
     undefined)
 
   t.equal(
@@ -158,7 +216,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, true, true),
+    find(users, true, {all: true}),
     undefined)
 
   t.equal(
@@ -166,7 +224,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, false, true),
+    find(users, false, {all: true}),
     undefined)
 
   t.equal(
@@ -174,7 +232,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, NaN, true),
+    find(users, NaN, {all: true}),
     undefined)
 
   t.equal(
@@ -182,7 +240,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, null, true),
+    find(users, null, {all: true}),
     undefined)
 
   t.equal(
@@ -190,7 +248,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, undefined, true),
+    find(users, undefined, {all: true}),
     undefined)
 
   t.equal(
@@ -198,7 +256,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, 0, true),
+    find(users, 0, {all: true}),
     undefined)
 
   t.equal(
@@ -206,7 +264,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, 1, true),
+    find(users, 1, {all: true}),
     undefined)
 
   t.equal(
@@ -214,7 +272,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, '', true),
+    find(users, '', {all: true}),
     undefined)
 
   t.equal(
@@ -222,7 +280,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, ' ', true),
+    find(users, ' ', {all: true}),
     undefined)
 
   t.equal(
@@ -230,7 +288,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(null, function(e) { return e.name == 'Jane' }, true),
+    find(null, function(e) { return e.name == 'Jane' }, {all: true}),
     undefined)
 
   t.equal(
@@ -238,7 +296,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, 'awesome..cat', true),
+    find(users, 'awesome..cat', {all: true}),
     undefined)
 
   t.equal(
@@ -246,7 +304,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, 'awesome/cat', true),
+    find(users, 'awesome/cat', {all: true}),
     undefined)
 
   t.end()
