@@ -19,21 +19,27 @@ function find (arr, search, options) {
   if (!Array.isArray(arr)) return
 
   var fn = typeof search == 'function'
-  var obj = isObject(search)
+  var obj = fn ? false : isObject(search)
   if (!fn && !obj) return
 
   var i = 0
   var n = arr.length
   var result = []
+  var map = options && typeof options.map == 'function'
+  var idx = options && options.index === true
+  var all = options && options.all === true
 
   for (; i < n; i++) {
     if (fn && search(arr[i]) || obj && compare(arr[i], search)) {
       if (options) {
-        if (options.index === true) {
-          if (options.all !== true) return i
+        if (map) {
+          arr[i] = options.map(arr[i], i, arr)
+        }
+        if (idx) {
+          if (!all) return i
           result.push(i)
         }
-        else if (options.all === true) result.push(arr[i])
+        else if (all) result.push(arr[i])
       }
       else return arr[i]
     }

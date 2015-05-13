@@ -193,6 +193,38 @@ test('find(arr, obj, {all: true, index: true})', function (t) {
   t.end()
 })
 
+test('find(arr, obj, {map: fn})', function (t) {
+
+  var temp = [
+    { name: 'Tobi', age: 2, species: 'ferret' },
+    { name: 'Jane', age: 6, species: 'ferret' },
+    { name: 'Luna', age: 2, species: 'cat' },
+    { name: 'Jane', age: 4, species: 'dog' },
+    { name: 'Boby', age: 0, species: 'fish' }
+  ]
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {all: true, map: function(e, i, a) {
+      e.ok = true
+      e.index = i
+      e.age++
+      e.next = a[i + 1].name
+      return e
+    }}),
+    [{ name: 'Jane', age: 7, species: 'ferret', ok: true, index: 1, next: 'Luna' },
+     { name: 'Jane', age: 5, species: 'dog', ok: true, index: 3, next: 'Boby' }])
+
+  t.deepEqual(temp, [
+    { name: 'Tobi', age: 2, species: 'ferret' },
+    { name: 'Jane', age: 7, species: 'ferret', ok: true, index: 1, next: 'Luna' },
+    { name: 'Luna', age: 2, species: 'cat' },
+    { name: 'Jane', age: 5, species: 'dog', ok: true, index: 3, next: 'Boby' },
+    { name: 'Boby', age: 0, species: 'fish' }
+  ])
+
+  t.end()
+})
+
 test('wrong values', function (t) {
 
   t.equal(
@@ -292,19 +324,7 @@ test('wrong values', function (t) {
     undefined)
 
   t.equal(
-    find(users, 'awesome..cat'),
-    undefined)
-
-  t.equal(
-    find(users, 'awesome..cat', {all: true}),
-    undefined)
-
-  t.equal(
-    find(users, 'awesome/cat'),
-    undefined)
-
-  t.equal(
-    find(users, 'awesome/cat', {all: true}),
+    find(users, 'awesome.cat'),
     undefined)
 
   t.end()

@@ -30,6 +30,10 @@ Return all matches instead of the first one
 
 Return the index instead of the value
 
+#### {map: fn}
+
+Apply map function on each match
+
 ## Example
 
 ```js
@@ -67,6 +71,13 @@ find(users, { name: 'John' }, { all: true, index: true })
 
 find(users, { name: 'Luna' }, { index: true })
 // => 2
+
+find(users, { name: 'Jane' }, { map: function(e, i) {
+  e.age++
+  e.index = i
+  return e
+}})
+// => { name: 'Jane', age: 7, species: 'ferret', admin: true, index: 1 }
 ```
 
 ## Thanks
