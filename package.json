@@ -1,6 +1,6 @@
 {
   "name": "find",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Array find utility",
   "readme": "Array find utility",
   "main": "index.js",
@@ -8,8 +8,8 @@
     "index.js"
   ],
   "devDependencies": {
-    "tape": "~4",
-    "tap-min": "~1"
+    "tape": "^4",
+    "tap-min": "^1"
   },
   "scripts": {
     "test": "tape test.js | tap-min"

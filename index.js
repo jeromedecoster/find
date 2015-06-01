@@ -28,21 +28,37 @@ function find (arr, search, options) {
   var map = options && typeof options.map == 'function'
   var idx = options && options.index === true
   var all = options && options.all === true
+  var assign = options && isObject(options.assign)
+  if (options && options.last === true) {
+    var last = true
+    i = n - 1
+  }
 
-  for (; i < n; i++) {
+  while (!last && i < n || last && i >= 0) {
     if (fn && search(arr[i]) || obj && compare(arr[i], search)) {
       if (options) {
+        if (assign) {
+          for (var key in options.assign) {
+            arr[i][key] = options.assign[key]
+          }
+        }
         if (map) {
           arr[i] = options.map(arr[i], i, arr)
         }
         if (idx) {
           if (!all) return i
           result.push(i)
+          if (last) return result
         }
-        else if (all) result.push(arr[i])
+        else if (all) {
+          result.push(arr[i])
+          if (last) return result
+        }
       }
       else return arr[i]
     }
+    if (!last) i++
+    else i--
   }
   if (result.length > 0) return result
 }
@@ -57,9 +73,9 @@ function find (arr, search, options) {
 
 function isObject (obj) {
   return !!obj
-      && typeof obj === 'object'
-      && obj.constructor === Object
-      && Object.keys(obj).length > 0
+    && typeof obj === 'object'
+    && obj.constructor === Object
+    && Object.keys(obj).length > 0
 }
 
 /**
