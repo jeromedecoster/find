@@ -9,10 +9,13 @@
   ],
   "devDependencies": {
     "tape": "^4",
-    "tap-min": "^1"
+    "tap-min": "^1",
+    "zuul": "^3"
   },
   "scripts": {
-    "test": "tape test.js | tap-min"
+    "test": "tape test.js | tap-min",
+    "zuul": "zuul -- test.js",
+    "zuul:local": "zuul --local 8080 -- test.js"
   },
   "repository": {
     "type": "git",

@@ -159,6 +159,20 @@ find(users, { name: 'Jane' }, { map: function(e, i) {
 // => { name: 'Jane', age: 7, species: 'ferret', index: 1 }
 ```
 
+## Tests
+
+Successfully tested on
+
+| Browser | Versions |
+| ------- | -------- |
+| IE | 9 ... 11 |
+| Chrome | 35 ... 43 |
+| Firefox | 30 ... 37 |
+| Safari | 6 ... 8 |
+| iPhone | 5.0 ... 8.1 |
+| iPad | 5.0 ... 8.1 |
+| Android | 4.0 ... 5.1 |
+
 ## Thanks
 
 Mainly forked / inspired by <a href="https://github.com/component/find" target="_blank">find</a> and <a href="https://github.com/defunctzombie/node-partial-compare" target="_blank">partial-compare</a>
