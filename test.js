@@ -23,6 +23,10 @@ test('find(arr, fn)', function (t) {
     find(users, function(e) { return e.name == 'John' }),
     undefined)
 
+  t.equal(
+    find(users, function(e) { return e.name == 'Jane' }, {}),
+    users[1])
+
   t.end()
 })
 
@@ -161,6 +165,10 @@ test('find(arr, obj)', function (t) {
   t.equal(
     find(users, { awesome: { big: { joe : true } } }),
     undefined)
+
+  t.equal(
+    find(users, { name: 'Jane' }, {}),
+    users[1])
 
   t.end()
 })
@@ -311,6 +319,63 @@ test('find(arr, obj, {assign: {}})', function (t) {
     { name: 'Jane', age: 7, species: 'dog', ok: true },
     { name: 'Boby', age: 0, species: 'fish' }
   ])
+
+  t.end()
+})
+
+test('find(arr, obj, {from: index})', function (t) {
+
+  var temp = [
+    { name: 'Tobi', age: 2, species: 'ferret' },
+    { name: 'Jane', age: 6, species: 'ferret' },
+    { name: 'Luna', age: 2, species: 'cat' },
+    { name: 'Jane', age: 4, species: 'dog' },
+    { name: 'Boby', age: 0, species: 'fish' }
+  ]
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 1}),
+    temp[1])
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 2}),
+    temp[3])
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 3}),
+    temp[3])
+
+  t.equal(
+    find(temp, { name: 'Jane' }, {from: 4}),
+    undefined)
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: -3}),
+    temp[1])
+
+  t.equal(
+    find(temp, { name: 'Jane' }, {from: 6}),
+    undefined)
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 6, last:true}),
+    temp[3])
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 3, last:true}),
+    temp[3])
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 2, last:true}),
+    temp[1])
+
+  t.deepEqual(
+    find(temp, { name: 'Jane' }, {from: 1, last:true}),
+    temp[1])
+
+  t.equal(
+    find(temp, { name: 'Jane' }, {from: 0, last:true}),
+    undefined)
 
   t.end()
 })

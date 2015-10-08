@@ -1,6 +1,6 @@
 {
   "name": "find",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Array find utility",
   "readme": "Array find utility",
   "main": "index.js",
@@ -17,8 +17,5 @@
     "zuul": "zuul -- test.js",
     "zuul:local": "zuul --local 8080 -- test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jeromedecoster/find.git"
-  }
+  "repository": "jeromedecoster/find"
 }

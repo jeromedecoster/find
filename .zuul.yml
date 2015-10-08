@@ -3,14 +3,32 @@ browsers:
   - name: ie
     version: 9..latest
   - name: chrome
-    version: 35..latest
+    version: 39..latest
   - name: firefox
-    version: 30..latest
+    version: 35..latest
   - name: safari
     version: 5..latest
-  - name: iphone
-    version: 4.3..latest
-  - name: ipad
-    version: 4.3..latest
   - name: android
-    version: 4.0..latest
+    version: 4.0
+  - name: android
+    version: 4.1
+  - name: android
+    version: 4.2
+  - name: android
+    version: 4.3
+  - name: android
+    version: 4.4
+  - name: android
+    version: 5.0
+  - name: android
+    version: 5.1
+  - name: iphone
+    version: 5.0
+  - name: iphone
+    version: 6.0
+  - name: iphone
+    version: 7.0
+  - name: iphone
+    version: 8.0
+  - name: iphone
+    version: 9.0

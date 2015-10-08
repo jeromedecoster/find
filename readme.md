@@ -123,6 +123,22 @@ find(users, { name: 'Jane' }, { last: true, all: true, index: true })
 // => [3]
 ```
 
+#### {from: integer}
+
+Start search from the specified index
+
+```js
+var users = [
+  { name: 'Tobi', age: 2, species: 'ferret' },
+  { name: 'Jane', age: 6, species: 'ferret' },
+  { name: 'Luna', age: 2, species: 'cat' },
+  { name: 'Jane', age: 4, species: 'dog' }
+]
+
+find(users, { name: 'Jane' }, { from: 2 })
+// => { name: 'Jane', age: 4, species: 'dog' }
+```
+
 #### {assign: obj}
 
 Extend each match with `obj`
@@ -166,11 +182,10 @@ Successfully tested on
 | Browser | Versions |
 | ------- | -------- |
 | IE | 9 ... 11 |
-| Chrome | 35 ... 43 |
-| Firefox | 30 ... 37 |
-| Safari | 6 ... 8 |
-| iPhone | 5.0 ... 8.1 |
-| iPad | 5.0 ... 8.1 |
+| Chrome | 39 ... 45 |
+| Firefox | 35 ... 41 |
+| Safari | 5 ... 8 |
+| iPhone | 6.0 ... 9.0 |
 | Android | 4.0 ... 5.1 |
 
 ## Thanks

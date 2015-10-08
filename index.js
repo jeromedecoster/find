@@ -33,27 +33,30 @@ function find (arr, search, options) {
     var last = true
     i = n - 1
   }
+  if (options && typeof options.from == 'number') {
+    i = options.from
+    if (i < 0) i = 0
+    else if (i > n - 1) i = n - 1
+  }
 
   while (!last && i < n || last && i >= 0) {
     if (fn && search(arr[i]) || obj && compare(arr[i], search)) {
-      if (options) {
-        if (assign) {
-          for (var key in options.assign) {
-            arr[i][key] = options.assign[key]
-          }
+      if (assign) {
+        for (var key in options.assign) {
+          arr[i][key] = options.assign[key]
         }
-        if (map) {
-          arr[i] = options.map(arr[i], i, arr)
-        }
-        if (idx) {
-          if (!all) return i
-          result.push(i)
-          if (last) return result
-        }
-        else if (all) {
-          result.push(arr[i])
-          if (last) return result
-        }
+      }
+      if (map) {
+        arr[i] = options.map(arr[i], i, arr)
+      }
+      if (idx) {
+        if (!all) return i
+        result.push(i)
+        if (last) return result
+      }
+      else if (all) {
+        result.push(arr[i])
+        if (last) return result
       }
       else return arr[i]
     }
