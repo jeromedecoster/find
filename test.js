@@ -349,17 +349,17 @@ test('find(arr, obj, {from: index})', function (t) {
     find(temp, { name: 'Jane' }, {from: 4}),
     undefined)
 
-  t.deepEqual(
-    find(temp, { name: 'Jane' }, {from: -3}),
-    temp[1])
-
   t.equal(
-    find(temp, { name: 'Jane' }, {from: 6}),
+    find(temp, { name: 'Jane' }, {from: -1}),
     undefined)
 
-  t.deepEqual(
-    find(temp, { name: 'Jane' }, {from: 6, last:true}),
-    temp[3])
+  t.equal(
+    find(temp, { name: 'Jane' }, {from: 5}),
+    undefined)
+
+  t.equal(
+    find(temp, { name: 'Jane' }, {from: 5, last:true}),
+    undefined)
 
   t.deepEqual(
     find(temp, { name: 'Jane' }, {from: 3, last:true}),

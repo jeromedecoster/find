@@ -35,8 +35,7 @@ function find (arr, search, options) {
   }
   if (options && typeof options.from == 'number') {
     i = options.from
-    if (i < 0) i = 0
-    else if (i > n - 1) i = n - 1
+    if (i < 0 || i > n - 1) return
   }
 
   while (!last && i < n || last && i >= 0) {
